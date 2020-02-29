@@ -11,7 +11,7 @@
     (t/is (= #{"A" "B" "C"} (set (m/->nodes graph))) "not the right nodes found in simple graph")
     (t/is (= #{["A" "B"] ["A" "C"]} (set (m/->edges graph))) "not the right edges found in simple graph")))
 
-(t/deftest full-graph-sanity-check-test
+(t/deftest var-deps-graph-sanity-check-test
   (let [mranderson-graph (m/var-deps-graph mranderson-analysis)
         nodes (m/->nodes mranderson-graph)
         nodes-set (set nodes)]
@@ -19,6 +19,16 @@
     (t/is (nodes-set "mranderson.move/replace-in-ns-form") "mranderson var is not node")
     (t/is (nodes-set "rewrite-clj.zip/node") "mranderson dependency var is not node")
     (t/is (nodes-set "clojure.core/let") "clojure.core var is not node")))
+
+(t/deftest var-usages-graph-test
+  (let [mranderson-core-str-graph (m/var-usages-graph mranderson-analysis "clojure.core/str")
+        nodes (m/->nodes mranderson-core-str-graph)
+        edges (m/->edges mranderson-core-str-graph)
+        nodes-set (set nodes)]
+    (t/is (= 38 (count nodes)))
+    (t/is (= (dec (count nodes)) (count edges)))
+    (t/is (nodes-set "clojure.core/str") "var the graph was built for is not a node")
+    (t/is (nodes-set "mranderson.move/sym->file") "dependent node on 'clojure.core/str' is not a node")))
 
 (t/deftest filename-test
   (t/is (= "foo.bar__some-var.svg" (m/filename "foo.bar/some-var" :svg))))
