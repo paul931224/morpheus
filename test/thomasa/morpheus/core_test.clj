@@ -26,7 +26,7 @@
         edges (m/->edges mranderson-core-str-graph)
         nodes-set (set nodes)]
     (t/is (= 38 (count nodes)))
-    (t/is (= (dec (count nodes)) (count edges)))
+    (t/is (= 62 (count edges)))
     (t/is (nodes-set "clojure.core/str") "var the graph was built for is not a node")
     (t/is (nodes-set "mranderson.move/sym->file") "dependent node on 'clojure.core/str' is not a node")))
 
