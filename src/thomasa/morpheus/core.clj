@@ -72,7 +72,8 @@
         dependents-edges (filter (every-pred (comp dependents first) (comp dependents last)) usages)
         nodes (cons node dependents)
         edges (into edges-to-node dependents-edges)]
-    (->graph nodes edges)))
+    (-> (->graph nodes edges)
+        (attr/add-attr-to-edges :color "blue" dependents-edges))))
 
 (defn var-deps-graph
   "Create a digraph based on `analysis`.
