@@ -37,13 +37,11 @@
                        (fn [{:keys [ns name]}] (str ns "/" name))
                        (:var-definitions analysis))
             paul     (println (str "Graf: " (vec nodes)))]
-        (let [node "x.server-core.api/-main"]
-          (println "graf eredmenye: " (m/node->subgraph graph node))
+        
+        (doseq [node nodes]
           (->
             (m/node->subgraph graph node)
             (m/add-ref-to-subgraphs nodes format)
-            (m/graph->file! dir node format)))
-        (comment (doseq [node nodes]
-                   (-> (m/node->subgraph graph node)
-                     (m/add-ref-to-subgraphs nodes format)
-                     (m/graph->file! dir node format))))))))
+            (fn [graph]
+              (if (= "x.server-core.api/-main" node)
+                (m/graph->file! graph dir node format)))))))))
