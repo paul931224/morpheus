@@ -33,10 +33,10 @@
       :default
       (let [analysis (m/lint-analysis arguments)
             graph    (m/var-deps-graph analysis)
-            paul     (println (str "Graf: " graph))
             nodes    (map
                        (fn [{:keys [ns name]}] (str ns "/" name))
-                       (:var-definitions analysis))]
+                       (:var-definitions analysis))
+            paul     (println (str "Graf: " nodes))]
         (doseq [node nodes]
           (-> (m/node->subgraph graph node)
             (m/add-ref-to-subgraphs nodes format)
