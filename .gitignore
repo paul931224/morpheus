@@ -16,3 +16,5 @@ pom.xml.asc
 target/
 sqlite.1.db
 *.lein*
+.idea
+morpheus.iml
