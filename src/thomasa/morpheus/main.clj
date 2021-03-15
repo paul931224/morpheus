@@ -43,5 +43,5 @@
             (m/node->subgraph graph node)
             (m/add-ref-to-subgraphs nodes format)
             ((fn [a]
-               (println node)
-               (m/graph->file! a dir node format)))))))))
+               (if (= "x.server-core.api/-main" node)
+                 (m/graph->file! a dir node format))))))))))

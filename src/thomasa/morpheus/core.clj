@@ -98,6 +98,7 @@
 
   Filename is generated based on `node` and `format`, see [[filename]] for details."
   [graph dir node format]
+  (println "tenyleg a graf" graph)
   (io/copy
    (lio/render-to-bytes graph :fmt (keyword format))
    (File. dir (filename node format))))
