@@ -36,7 +36,7 @@
             nodes    (map
                        (fn [{:keys [ns name]}] (str ns "/" name))
                        (:var-definitions analysis))
-            paul     (println (str "Graf: " nodes))]
+            paul     (println (str "Graf: " (vec nodes)))]
         (doseq [node nodes]
           (-> (m/node->subgraph graph node)
             (m/add-ref-to-subgraphs nodes format)
