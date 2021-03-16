@@ -36,7 +36,7 @@
             nodes    (map
                        (fn [{:keys [ns name]}] (str ns "/" name))
                        (:var-definitions analysis))
-            paul     (println (str "Graf: " analysis))]
+            paul     (spit "analysis.txt" (str "Graf: " analysis))]
 
         (doseq [node nodes]
           (->
